@@ -1,0 +1,56 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body{
+    background-color: rgb(255, 255, 255);
+}
+
+#saudacao{
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+#containerValores{
+    display: flex;
+    justify-content: space-around;
+}
+
+.valores{
+    text-align: center;
+    color: rgb(255, 255, 255);
+    background-color: blueviolet;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.tituloContainer{
+    margin: 10px 0 10px 0;
+    text-align: center;
+}
+
+.containerContas{
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 30px;
+}
+
+.conta{
+    padding: 10px;
+    text-align: center;
+    border-radius: 10px;
+}
+
+#aPagar{
+    background-color: rgb(235, 37, 37);
+}
+
+#pagas{
+    background-color: rgb(37, 235, 70);
+}
+
+#dadosConta{
+    text-align: initial;
+}
