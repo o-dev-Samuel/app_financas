@@ -8,6 +8,22 @@ body{
     background-color: rgb(255, 255, 255);
 }
 
+#pegandoDados{
+    margin-top: 200px;
+    margin-inline: auto;
+    text-align: center;
+    padding: 10px;
+}
+
+.btnModal{
+    display: block;
+    margin-inline: auto;
+}
+
+#pegandoDados::backdrop{
+    background-color: black;
+}
+
 #saudacao{
     text-align: center;
     margin-bottom: 20px;
