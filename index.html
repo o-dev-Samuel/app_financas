@@ -17,18 +17,35 @@
             <form action="" method="post">
                 <div id="perguntaNome">
                     <h1>Olá</h1>
-                <h2>Qual é o seu primeiro nome?</h2>
-                <input type="text" id="nomeUsuario">
-                <button id="btnModalNome" class="btnModal">OK</button>
+                    <h2>Qual é o seu primeiro nome?</h2>
+                    <input type="text" id="nomeUsuario">
+                    <button id="btnModalNome" class="btnModal">OK</button>
                 </div>
 
                 <div id="perguntaSalario" hidden>
                     <h1>Olá</h1>
-                <h2>Qual é o seu salário base?</h2>
-                <input type="number" id="salarioUsuario">
-                <button id="btnModalSalario" class="btnModal">OK</button>
+                    <h2>Qual é o seu salário base?</h2>
+                    <input type="number" id="salarioUsuario">
+                    <button id="btnModalSalario" class="btnModal">OK</button>
                 </div>
-                
+
+                <div id="novaConta" hidden>
+                    <h1>Adicione uma conta!</h1>
+
+                    <h2>Título</h2>
+                    <input type="text" id="tituloNovaConta" name="tituloNovaConta">
+
+                    <h2>Valor</h2>
+                    <input type="number" id="valorNovaConta" name="valorNovaConta">
+
+                    <h2>Vencimento</h2>
+                    <input type="date" id="vencimentoNovaConta" name="vencimentoNovaConta">
+
+                    
+                    <input type="reset" value="Add" id="btnModalNovaConta" class="btnModal">
+
+                </div>
+
             </form>
         </dialog>
 
@@ -57,22 +74,13 @@
 
     <main>
         <h1 class="tituloContainer">Contas a Pagar</h1>
-        <div class="containerContas">
-            <div class="conta" id="aPagar">
-                <h3>luz</h3>
-                <div id="dadosConta">
-                    <p>valor:80$</p>
-                    <p>vencimento: 12/03</p>
-                </div>
-            </div>
-
-        </div>
+        <div id="containerContas"></div>
 
         <h1 class="tituloContainer">Contas Pagas</h1>
-        <div class="containerContas">
-            <div class="conta" id="pagas">
+        <div>
+            <div class="pagas">
                 <h3>luz</h3>
-                <div id="dadosConta">
+                <div class="dadosConta">
                     <p>valor:80$</p>
                     <p>vencimento: 12/03</p>
                 </div>
@@ -80,9 +88,17 @@
 
         </div>
 
-        
+
 
     </main>
+    <section id="adicionarConta">
+        <button id="btnAddConta">
+            <img src="./img/add.png" alt="Imagem de adição" width="25px">
+        </button>
+        <div>
+
+        </div>
+    </section>
 
 </body>
 
