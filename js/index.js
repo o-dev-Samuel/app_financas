@@ -59,29 +59,43 @@ btnAddConta.addEventListener('click', () => {
 let dividas = []
 // Contrutor para as dividas
 class Conta {
-    constructor(titulo, valor, vencimento) {
+    constructor(titulo, valor, vencimento, id) {
         this.titulo = titulo
         this.valor = valor
         this.vencimento = vencimento
+        this.id = id
     }
 }
 
 // Função para renderizar as dividas
-let containerContasApagar = document.getElementById('containerContas')
+let containerContasApagar = document.getElementById('containerContasApagar')
 function renderizaDividas() {
     // Limpando o container pra não repitir as contas
     containerContasApagar.innerHTML = ''
     dividas.forEach(conta => {
         containerContasApagar.innerHTML += `
         <div class="aPagar">
-        <h3>${conta.titulo}</h3>
+        <h2>${conta.titulo}</h2>
+        <h3>ID:${conta.id}</h3>
         <div class="dadosConta">
-            <p>valor:${conta.valor}</p>
+            <p>valor:$${conta.valor}</p>
             <p>vencimento:${conta.vencimento}</p>
+            <button class="excluirConta">Excluir</button>
+            <button class="pagarConta">Pagar</button>
         </div>
         `
     });
 }
+
+// Funçao para percorrer o array e obter o total das dividas
+let somaTotalDividas;
+function totalDividas(){
+    somaTotalDividas = 0;
+    dividas.forEach(conta => {
+        somaTotalDividas += Number(conta.valor)
+    })
+}
+
 
 btnModalNovaConta.addEventListener('click', (event) => {
     //event.preventDefault()
@@ -91,10 +105,20 @@ btnModalNovaConta.addEventListener('click', (event) => {
     let vencimentoNovaConta = document.getElementById('vencimentoNovaConta').value
 
     // Crinado obj da conta
-    let novaConta = new Conta(tituloNovaConta, `$${valorNovaConta.toLocaleString("pt-br")}`, vencimentoNovaConta)
+    let novaConta = new Conta(tituloNovaConta, valorNovaConta, vencimentoNovaConta, dividas.length + 1)
 
     // Adicionando a conta ao array de dividas
     dividas.push(novaConta)
+
+    // Percorrendo o array de dividas e adicionando o valor a variavel somaTotalDividas
+    totalDividas();
+    let elementoDividas = document.getElementById('valorDividas')
+    elementoDividas.innerText = `${somaTotalDividas}`
+    console.log(somaTotalDividas)
+
+    // Caulculando o que sobra do Salario e atribuindo ao elemento sobras
+    let elementoSobras = document.getElementById('valorSobras')
+    elementoSobras.innerText = salarioUsuario - somaTotalDividas
 
     // Chamando a função que renderiza as dividas
     renderizaDividas()
