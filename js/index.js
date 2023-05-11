@@ -14,6 +14,15 @@ let btnModalNovaConta = document.getElementById('btnModalNovaConta')
 let modalNome = document.getElementById('perguntaNome')
 let modalSalario = document.getElementById('perguntaSalario')
 let modalAddConta = document.getElementById('novaConta')
+let modalExcluirConta = document.getElementById('excluirConta')
+let btnModalExcluirConta = document.getElementById('btnModalExcluirConta')
+let btnModalCancelarExclusao = document.getElementById('btnModalCancelarExclusao')
+let modalConfirmarExclusao = document.getElementById('confirmarExclusao')
+let h1ConfirmarExclusao = document.getElementById('h1ConfirmarExclusao')
+let btnModalConfirmarExclusao = document.getElementById('btnModaConfirmarExclusao')
+
+
+
 
 // Variaveis do usuario
 let nomeUsuario;
@@ -59,11 +68,10 @@ btnAddConta.addEventListener('click', () => {
 let dividas = []
 // Contrutor para as dividas
 class Conta {
-    constructor(titulo, valor, vencimento, id) {
+    constructor(titulo, valor, vencimento) {
         this.titulo = titulo
         this.valor = valor
         this.vencimento = vencimento
-        this.id = id
     }
 }
 
@@ -72,15 +80,17 @@ let containerContasApagar = document.getElementById('containerContasApagar')
 function renderizaDividas() {
     // Limpando o container pra não repitir as contas
     containerContasApagar.innerHTML = ''
+    let contadorId = 0;
     dividas.forEach(conta => {
+        contadorId++
         containerContasApagar.innerHTML += `
         <div class="aPagar">
         <h2>${conta.titulo}</h2>
-        <h3>ID:${conta.id}</h3>
+        <h3>ID:${contadorId}</h3>
         <div class="dadosConta">
             <p>valor:$${conta.valor}</p>
             <p>vencimento:${conta.vencimento}</p>
-            <button class="excluirConta">Excluir</button>
+            <button class="excluirConta"  onclick="excluirConta()">Excluir</button>
             <button class="pagarConta">Pagar</button>
         </div>
         `
@@ -89,11 +99,18 @@ function renderizaDividas() {
 
 // Funçao para percorrer o array e obter o total das dividas
 let somaTotalDividas;
-function totalDividas(){
+function totalDividas() {
     somaTotalDividas = 0;
     dividas.forEach(conta => {
         somaTotalDividas += Number(conta.valor)
     })
+}
+
+// Função para chamar o modal de exclusao de conta
+function excluirConta() {
+    modalAddConta.setAttribute('hidden', true)
+    modalExcluirConta.removeAttribute('hidden')
+    dialogo.showModal()
 }
 
 
@@ -105,7 +122,7 @@ btnModalNovaConta.addEventListener('click', (event) => {
     let vencimentoNovaConta = document.getElementById('vencimentoNovaConta').value
 
     // Crinado obj da conta
-    let novaConta = new Conta(tituloNovaConta, valorNovaConta, vencimentoNovaConta, dividas.length + 1)
+    let novaConta = new Conta(tituloNovaConta, valorNovaConta, vencimentoNovaConta)
 
     // Adicionando a conta ao array de dividas
     dividas.push(novaConta)
@@ -126,5 +143,47 @@ btnModalNovaConta.addEventListener('click', (event) => {
     // fechando o modal
     dialogo.close()
 })
+
+// Variavel de index para ecluir
+let indexParaExcluir;
+btnModalExcluirConta.addEventListener('click', (event) => {
+    event.preventDefault()
+
+    // capturando id da conta a ser excluida
+    indexParaExcluir = document.getElementById('idParaExcluir').value - 1
+
+    // Verificando se a conta existe
+    if (indexParaExcluir + 1 > dividas.length) {
+        alert("Conta não encontrada!")
+    } else {
+        // Mudando para o modal de confirmação
+        modalExcluirConta.setAttribute('hidden', true)
+        modalConfirmarExclusao.removeAttribute('hidden')
+        h1ConfirmarExclusao.innerText = `Deseja excluir a conta "${dividas[indexParaExcluir].titulo}"?`
+    }
+})
+
+btnModalConfirmarExclusao.addEventListener('click', (event) => {
+    event.preventDefault()
+    //Excluindo
+    dividas.splice(indexParaExcluir, 1)
+
+    // Chamando a função que renderiza as dividas
+    renderizaDividas()
+
+    // fechando o modal
+    dialogo.close()
+
+    // ocultando o modal de confirmação de  exclusao
+    modalConfirmarExclusao.setAttribute('hidden', true)
+
+})
+
+btnModalCancelarExclusao.addEventListener('click', (event) => {
+    event.preventDefault()
+    alert('Funcionou')
+})
+
+
 
 
