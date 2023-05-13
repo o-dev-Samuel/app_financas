@@ -51,15 +51,32 @@
                     <h1>Deseja excluir?</h1>
                     <h2>Digite o "id" da conta para confirmar!</h2>
                     <input type="number" name="idParaExcluir" id="idParaExcluir">
-                    <button id="btnModalExcluirConta">Excluir</button>
-                    <button id="btnModalCancelarExclusao">Cancelar</button>
+                    <button type="reset" id="btnModalExcluirConta">Excluir</button>
+                    <button type="reset" id="btnModalCancelarExclusao">Cancelar</button>
 
                 </div>
 
                 <div id="confirmarExclusao" hidden>
                     <h1 id="h1ConfirmarExclusao"></h1>
-                    <button id="btnModaConfirmarExclusao">Excluir</button>
-                <button id="btnModalCancelarConfirmacaoExclusao">Cancelar</button>
+                    <button type="reset" id="btnModaConfirmarExclusao">Excluir</button>
+                <button type="reset" id="btnModalCancelarConfirmacaoExclusao">Cancelar</button>
+
+                </div>
+
+                <div id="modalPagarConta" hidden>
+                    <h1>Deseja Pagar?</h1>
+                    <h2>Digite o "id" da conta para confirmar!</h2>
+                    <input type="number" name="idParaPagar" id="idParaPagar">
+                    <button type="reset" id="btnModalPagarConta">Pagar</button>
+                    <button type="reset" id="btnModalCancelarPagamento">Cancelar</button>
+                </div>
+
+                <div id="confirmarPagamento" hidden>
+                    <h1 id="h1ConfirmarPagamento"></h1>
+                    <button type="reset" id="btnModalConfirmarPagamento">Pagar</button>
+                <button type="reset" id="btnModalCancelarConfirmacaoPagamento">Cancelar</button>
+
+                </div>
                 
 
             </form>
@@ -93,12 +110,11 @@
         <div class="containerContas" id="containerContasApagar"></div>
 
         <h1 class="tituloContainer">Contas Pagas</h1>
-        <div class="containerContas">
-            <div class="pagas">
-                <h3>luz</h3>
+        <div class="containerContas"id="containerContasPagas">
+            <div class="pagas" >
+                <h3></h3>
                 <div class="dadosConta">
-                    <p>valor:80$</p>
-                    <p>vencimento: 12/03</p>
+                    <p></p>
                 </div>
             </div>
 
