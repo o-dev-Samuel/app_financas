@@ -12,7 +12,12 @@ let saudacao = document.getElementById('saudacao')
 let elementoSalario = document.getElementById('valorSalario')
 let btnModalNome = document.getElementById('btnModalNome')
 let btnModalSalario = document.getElementById('btnModalSalario')
+let btnAddConta = document.getElementById('btnAddConta')
 let btnModalNovaConta = document.getElementById('btnModalNovaConta')
+let inputTituloNovaConta = document.getElementById('tituloNovaConta')
+let inputValorNovaConta = document.getElementById('valorNovaConta')
+let inputVencimentoNovaConta = document.getElementById('vencimentoNovaConta')
+let btnModalCancelarNovaConta = document.getElementById('btnModalCancelarNovaConta')
 let modalNome = document.getElementById('perguntaNome')
 let modalSalario = document.getElementById('perguntaSalario')
 let modalAddConta = document.getElementById('novaConta')
@@ -32,6 +37,11 @@ let modalConfirmarPagamento = document.getElementById('confirmarPagamento')
 let h1ConfirmarPagamento = document.getElementById('h1ConfirmarPagamento')
 let btnModalConfirmarPagamento = document.getElementById('btnModalConfirmarPagamento')
 let btnModalCancelarConfirmacaoPagamento = document.getElementById('btnModalCancelarConfirmacaoPagamento')
+let btnLimparContasPagas = document.getElementById('btnLimparContasPagas')
+let modalConfirmarLimparContas = document.getElementById('modalConfirmarLimparContas')
+let btnModalConfirmarLimparContasPagas = document.getElementById('btnModalConfirmarLimparContasPagas')
+let btnModalCancelarLimparContas = document.getElementById('btnModalCancelarLimparContas')
+let btnEditarSalario = document.getElementById('btnEditarSalario')
 
 
 
@@ -41,6 +51,83 @@ let nomeUsuario;
 let salarioUsuario;
 let elementoDividas = document.getElementById('valorDividas')
 let elementoSobras = document.getElementById('valorSobras')
+
+// Validações
+// listener para interromper bug
+inputNomeUsuario.addEventListener('keydown', (event) => {
+    if (event.code == "Enter") {
+        event.preventDefault()
+    }
+})
+inputTituloNovaConta.addEventListener('keydown', (event) => {
+    if (event.code == "Enter") {
+        event.preventDefault()
+    }
+})
+inputValorNovaConta.addEventListener('keydown', (event) => {
+    if (event.code == "Enter") {
+        event.preventDefault()
+    }
+})
+inputVencimentoNovaConta.addEventListener('keydown', (event) => {
+    if (event.code == "Enter") {
+        event.preventDefault()
+    }
+})
+
+//Validação do Nome Do Usuário
+inputNomeUsuario.addEventListener('keyup', () => {
+    if (inputNomeUsuario.value.length > 0) {
+        btnModalNome.removeAttribute('disabled')
+    } else {
+        btnModalNome.setAttribute('disabled', true)
+    }
+})
+
+// Validações do Salário do Usuário
+inputSalarioUsuario.addEventListener('keyup', () => {
+    if (inputSalarioUsuario.value.length > 0) {
+        btnModalSalario.removeAttribute('disabled')
+    } else {
+        btnModalSalario.setAttribute('disabled', true)
+    }
+})
+
+// Validação Adicionar Conta
+let validarAddContaTitulo = false;
+let validarAddContaValor = false;
+let contaValidada = false;
+inputTituloNovaConta.addEventListener('keyup', () => {
+    // Validando campo titulo
+    if (inputTituloNovaConta.value.length > 0) {
+        validarAddContaTitulo = true
+    } else {
+        validarAddContaTitulo = false
+    }
+
+    // Validando se os dois campos estão validados
+    if (validarAddContaTitulo && validarAddContaValor) {
+        btnModalNovaConta.removeAttribute('disabled')
+    } else {
+        btnModalNovaConta.setAttribute('disabled', true)
+    }
+})
+
+inputValorNovaConta.addEventListener('keyup', () => {
+    // Validando campo titulo
+    if (inputValorNovaConta.value.length > 0) {
+        validarAddContaValor = true
+    } else {
+        validarAddContaValor = false
+    }
+
+    // Validando se os dois campos estão validados
+    if (validarAddContaTitulo && validarAddContaValor) {
+        btnModalNovaConta.removeAttribute('disabled')
+    } else {
+        btnModalNovaConta.setAttribute('disabled', true)
+    }
+})
 
 btnModalNome.addEventListener('click', (event) => {
     event.preventDefault()
@@ -56,17 +143,25 @@ btnModalSalario.addEventListener('click', (event) => {
     // Guardando o salário do usuário
     salarioUsuario = inputSalarioUsuario.value
 
+    // Caulculando o que sobra do Salario e atribuindo ao elemento sobras
+    elementoSobras.innerText = salarioUsuario - somaTotalDividas
+
     // ocultando o modal
     dialogo.close()
 
     // Adicionando os valores as variáveis
     saudacao.innerText = `Bem vindo(a), ${nomeUsuario}!`
     elementoSalario.innerText = salarioUsuario
+
+    // ociltando o modal de perguntar nome
+    modalSalario.setAttribute('hidden', true)
 })
 
-// Botã para adicionar contas
-let btnAddConta = document.getElementById('btnAddConta')
+
 btnAddConta.addEventListener('click', () => {
+    // Desabilotando btn do Modal nova conta
+    btnModalNovaConta.setAttribute('disabled', true)
+
     // ocultando form de salario do modal
     modalSalario.setAttribute('hidden', true)
     modalAddConta.removeAttribute('hidden')
@@ -127,15 +222,21 @@ function renderizarContasPagas() {
             <h3>${conta.titulo}</h3>
             <div class="dadosConta">
                 <p>$${conta.valor}</p>
-                <button class="excluirConta"  onclick="excluirConta()">Excluir</button>
             </div>
         </div>
         `
     })
+
+    if (dividasPagas.length <= 0) {
+        btnLimparContasPagas.setAttribute('hidden', true)
+    } else {
+        btnLimparContasPagas.removeAttribute('hidden')
+    }
+
 }
 
 // Funçao para percorrer o array e obter o total das dividas
-let somaTotalDividas;
+let somaTotalDividas = 0;
 function totalDividas() {
     somaTotalDividas = 0;
     dividas.forEach(conta => {
@@ -146,9 +247,6 @@ function totalDividas() {
 
 // Função para chamar o modal de exclusao de conta
 function excluirConta() {
-    // Fechando o modal de adiocionar conta
-    modalAddConta.setAttribute('hidden', true)
-
     modalExcluirConta.removeAttribute('hidden')
     dialogo.showModal()
 }
@@ -162,12 +260,17 @@ function pagarConta() {
     dialogo.showModal()
 }
 
+function limparContasPagas() {
+    modalConfirmarLimparContas.removeAttribute('hidden')
+    dialogo.showModal()
+}
+
 
 btnModalNovaConta.addEventListener('click', () => {
     // Capturando elementos e atribuindo valor as variaveis
-    let tituloNovaConta = document.getElementById('tituloNovaConta').value
-    let valorNovaConta = document.getElementById('valorNovaConta').value
-    let vencimentoNovaConta = document.getElementById('vencimentoNovaConta').value
+    let tituloNovaConta = inputTituloNovaConta.value
+    let valorNovaConta = inputValorNovaConta.value
+    let vencimentoNovaConta = inputVencimentoNovaConta.value
 
     // Crinado obj da conta
     let novaConta = new Conta(tituloNovaConta, valorNovaConta, vencimentoNovaConta)
@@ -186,6 +289,29 @@ btnModalNovaConta.addEventListener('click', () => {
 
     // fechando o modal
     dialogo.close()
+
+    // Fechando o modal de adiocionar conta
+    modalAddConta.setAttribute('hidden', true)
+
+    // Resetando as validacoes do modal add conta
+    validarAddContaTitulo = false
+    validarAddContaValor = false
+
+})
+
+btnModalCancelarNovaConta.addEventListener('click', () => {
+    // fechando o modal
+    dialogo.close()
+
+    // Fechando o modal de adiocionar conta
+    modalAddConta.setAttribute('hidden', true)
+
+    // Desabilotando btn do Modal nova conta
+    btnModalNovaConta.setAttribute('disabled', true)
+
+    // Resetando as validacoes do modal add conta
+    validarAddContaTitulo = false
+    validarAddContaValor = false
 })
 
 // Variavel de index para excluir
@@ -306,6 +432,28 @@ btnModalCancelarConfirmacaoPagamento.addEventListener('click', () => {
 
     // ocultando o modal de confirmar pagamento
     modalConfirmarPagamento.setAttribute('hidden', true)
+})
+
+btnModalConfirmarLimparContasPagas.addEventListener('click', () => {
+    // Limpando o array de dividas Pagas
+    dividasPagas = []
+
+    // Renderizando
+    renderizarContasPagas()
+
+    // Fechando modal
+    dialogo.close()
+
+    // ocultando modal de confirmar limpesa das contas
+    modalConfirmarLimparContas.setAttribute('hidden', true)
+})
+
+btnEditarSalario.addEventListener('click', () => {
+    alert('Fun')
+    // Habilitando o modal de perguntar salario
+    modalSalario.removeAttribute('hidden')
+
+    dialogo.showModal()
 })
 
 

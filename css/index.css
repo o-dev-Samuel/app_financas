@@ -21,7 +21,7 @@ body{
 }
 
 #pegandoDados::backdrop{
-    background-color: black;
+    background-color: rgb(0, 0, 0);
 }
 
 #saudacao{
@@ -86,4 +86,13 @@ body{
     background-color: rgb(37, 235, 70);
     border: none;
     position: fixed;
+}
+
+#containerBtnLimparContas{
+    display: flex;
+    justify-content: center;
+}
+
+#btnLimparContasPagas{
+    text-align: center;
 }

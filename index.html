@@ -19,14 +19,14 @@
                     <h1>Olá</h1>
                     <h2>Qual é o seu primeiro nome?</h2>
                     <input type="text" id="nomeUsuario">
-                    <button id="btnModalNome" class="btnModal">OK</button>
+                    <button id="btnModalNome" class="btnModal" disabled>OK</button>
                 </div>
 
                 <div id="perguntaSalario" hidden>
                     <h1>Olá</h1>
                     <h2>Qual é o seu salário base?</h2>
                     <input type="number" id="salarioUsuario">
-                    <button id="btnModalSalario" class="btnModal">OK</button>
+                    <button id="btnModalSalario" class="btnModal" disabled>OK</button>
                 </div>
 
                 <div id="novaConta" hidden>
@@ -42,7 +42,8 @@
                     <input type="date" id="vencimentoNovaConta" name="vencimentoNovaConta">
 
 
-                    <input type="reset" value="Add" id="btnModalNovaConta" class="btnModal">
+                    <input type="reset" value="Add" id="btnModalNovaConta" class="btnModal" disabled>
+                    <input type="reset" value="Cancelar" id="btnModalCancelarNovaConta" class="btnModal">
 
                 </div>
 
@@ -59,7 +60,7 @@
                 <div id="confirmarExclusao" hidden>
                     <h1 id="h1ConfirmarExclusao"></h1>
                     <button type="reset" id="btnModaConfirmarExclusao">Excluir</button>
-                <button type="reset" id="btnModalCancelarConfirmacaoExclusao">Cancelar</button>
+                    <button type="reset" id="btnModalCancelarConfirmacaoExclusao">Cancelar</button>
 
                 </div>
 
@@ -74,10 +75,19 @@
                 <div id="confirmarPagamento" hidden>
                     <h1 id="h1ConfirmarPagamento"></h1>
                     <button type="reset" id="btnModalConfirmarPagamento">Pagar</button>
-                <button type="reset" id="btnModalCancelarConfirmacaoPagamento">Cancelar</button>
-
+                    <button type="reset" id="btnModalCancelarConfirmacaoPagamento">Cancelar</button>
                 </div>
-                
+
+                <div id="modalConfirmarLimparContas" hidden>
+                    <h1>Deseja Limpar as Contas pagas?</h1>
+                    <button type="reset" id="btnModalConfirmarLimparContasPagas">Limpar</button>
+                    <button type="reset" id="btnModalCancelarLimparContas">Cancelar</button>
+                </div>
+
+
+
+
+
 
             </form>
         </dialog>
@@ -89,6 +99,8 @@
             <div id="salario" class="valores">
                 <h3 id="tituloSalario">Salario</h3>
                 <div id="valorSalario"></div>
+
+                <button id="btnEditarSalario">Editar</button>
             </div>
 
             <div id="dividas" class="valores">
@@ -110,28 +122,23 @@
         <div class="containerContas" id="containerContasApagar"></div>
 
         <h1 class="tituloContainer">Contas Pagas</h1>
-        <div class="containerContas"id="containerContasPagas">
-            <div class="pagas" >
-                <h3></h3>
-                <div class="dadosConta">
-                    <p></p>
-                </div>
-            </div>
-
+        <div class="containerContas" id="containerContasPagas">
         </div>
+
+        <div id="containerBtnLimparContas">
+            <button type="reset" id="btnLimparContasPagas" onclick="limparContasPagas()" hidden>Limpar Contas</button>
+        </div>
+
+
 
 
         <section id="adicionarConta">
             <button id="btnAddConta">
                 <img src="./img/add.png" alt="Imagem de adição" width="25px">
             </button>
-            <div>
-
-            </div>
         </section>
 
     </main>
-
 
 </body>
 
