@@ -23,6 +23,7 @@ let modalSalario = document.getElementById('perguntaSalario')
 let modalAddConta = document.getElementById('novaConta')
 let containerContasApagar = document.getElementById('containerContasApagar')
 let containerContasPagas = document.getElementById('containerContasPagas')
+let inpuIdParaExcluir = document.getElementById('idParaExcluir')
 let modalExcluirConta = document.getElementById('excluirConta')
 let btnModalExcluirConta = document.getElementById('btnModalExcluirConta')
 let btnModalCancelarExclusao = document.getElementById('btnModalCancelarExclusao')
@@ -31,6 +32,7 @@ let h1ConfirmarExclusao = document.getElementById('h1ConfirmarExclusao')
 let btnModalConfirmarExclusao = document.getElementById('btnModaConfirmarExclusao')
 let btnModalCancelarConfirmacaoExclusao = document.getElementById('btnModalCancelarConfirmacaoExclusao')
 let modalPagarConta = document.getElementById('modalPagarConta')
+let inputIdParaPagar = document.getElementById('idParaPagar')
 let btnModalPagarConta = document.getElementById('btnModalPagarConta')
 let btnModalCancelarPagamento = document.getElementById('btnModalCancelarPagamento')
 let modalConfirmarPagamento = document.getElementById('confirmarPagamento')
@@ -42,6 +44,8 @@ let modalConfirmarLimparContas = document.getElementById('modalConfirmarLimparCo
 let btnModalConfirmarLimparContasPagas = document.getElementById('btnModalConfirmarLimparContasPagas')
 let btnModalCancelarLimparContas = document.getElementById('btnModalCancelarLimparContas')
 let btnEditarSalario = document.getElementById('btnEditarSalario')
+let dicaContasApagar = document.getElementById('dicaContasApagar')
+let dicaContasPagas = document.getElementById('dicaContasPagas')
 
 
 
@@ -70,6 +74,16 @@ inputValorNovaConta.addEventListener('keydown', (event) => {
     }
 })
 inputVencimentoNovaConta.addEventListener('keydown', (event) => {
+    if (event.code == "Enter") {
+        event.preventDefault()
+    }
+})
+inpuIdParaExcluir.addEventListener('keydown', (event) => {
+    if (event.code == "Enter") {
+        event.preventDefault()
+    }
+})
+inputIdParaPagar.addEventListener('keydown', (event) => {
     if (event.code == "Enter") {
         event.preventDefault()
     }
@@ -138,8 +152,7 @@ btnModalNome.addEventListener('click', (event) => {
     modalSalario.removeAttribute('hidden')
 })
 
-btnModalSalario.addEventListener('click', (event) => {
-    event.preventDefault()
+btnModalSalario.addEventListener('click', () => {
     // Guardando o salário do usuário
     salarioUsuario = inputSalarioUsuario.value
 
@@ -203,7 +216,7 @@ function renderizarContas() {
         <h3>ID:${contadorId}</h3>
         <div class="dadosConta">
             <p>valor:$${conta.valor}</p>
-            <p>vencimento:${conta.vencimento}</p>
+            <p>ven.:${conta.vencimento}</p>
             <button class="excluirConta"  onclick="excluirConta()">Excluir</button>
             <button class="pagarConta" onclick="pagarConta()">Pagar</button>
         </div>
@@ -297,6 +310,10 @@ btnModalNovaConta.addEventListener('click', () => {
     validarAddContaTitulo = false
     validarAddContaValor = false
 
+    // Ocultando a dica
+    dicaContasApagar.setAttribute('hidden', true)
+
+
 })
 
 btnModalCancelarNovaConta.addEventListener('click', () => {
@@ -318,7 +335,7 @@ btnModalCancelarNovaConta.addEventListener('click', () => {
 let indexParaExcluir;
 btnModalExcluirConta.addEventListener('click', () => {
     // capturando id da conta a ser excluida
-    indexParaExcluir = document.getElementById('idParaExcluir').value - 1
+    indexParaExcluir = inpuIdParaExcluir.value - 1
 
     // Verificando se a conta existe
     if (indexParaExcluir + 1 > dividas.length || indexParaExcluir + 1 < 1) {
@@ -337,6 +354,11 @@ btnModalConfirmarExclusao.addEventListener('click', () => {
 
     // Chamando a função que renderiza as dividas
     renderizarContas()
+
+    // Se não houver dividas acione a dica
+    if (dividas.length <= 0) {
+        dicaContasApagar.removeAttribute('hidden')
+    }
 
     // fechando o modal
     dialogo.close()
@@ -373,7 +395,7 @@ btnModalCancelarConfirmacaoExclusao.addEventListener('click', () => {
 // Variavel de index para Pagar
 let indexParaPagar;
 btnModalPagarConta.addEventListener('click', () => {
-    indexParaPagar = document.getElementById('idParaPagar').value - 1
+    indexParaPagar = inputIdParaPagar.value - 1
 
     // Verificando se a conta existe
     if (indexParaPagar + 1 > dividas.length || indexParaPagar + 1 < 1) {
@@ -400,6 +422,14 @@ btnModalConfirmarPagamento.addEventListener('click', () => {
 
     //Excluindo das contas a pagar
     dividas.splice(indexParaPagar, 1)
+
+    // ocultando a dica
+    dicaContasPagas.setAttribute('hidden', true)
+
+    // Se não houver dividas acione a dica
+    if (dividas.length <= 0) {
+        dicaContasApagar.removeAttribute('hidden')
+    }
 
     // Renderizando as contas
     renderizarContasPagas()
@@ -438,6 +468,9 @@ btnModalConfirmarLimparContasPagas.addEventListener('click', () => {
     // Limpando o array de dividas Pagas
     dividasPagas = []
 
+    // mostrando a dica
+    dicaContasPagas.removeAttribute('hidden')
+
     // Renderizando
     renderizarContasPagas()
 
@@ -449,7 +482,9 @@ btnModalConfirmarLimparContasPagas.addEventListener('click', () => {
 })
 
 btnEditarSalario.addEventListener('click', () => {
-    alert('Fun')
+    // desabilitando botao de confirmar salario
+    btnModalSalario.setAttribute('disabled', true)
+    
     // Habilitando o modal de perguntar salario
     modalSalario.removeAttribute('hidden')
 

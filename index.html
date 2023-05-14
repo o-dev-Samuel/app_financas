@@ -26,7 +26,7 @@
                     <h1>Olá</h1>
                     <h2>Qual é o seu salário base?</h2>
                     <input type="number" id="salarioUsuario">
-                    <button id="btnModalSalario" class="btnModal" disabled>OK</button>
+                    <button type="reset" id="btnModalSalario" class="btnModal" disabled>OK</button>
                 </div>
 
                 <div id="novaConta" hidden>
@@ -118,15 +118,22 @@
     </header>
 
     <main>
-        <h1 class="tituloContainer">Contas a Pagar</h1>
-        <div class="containerContas" id="containerContasApagar"></div>
-
-        <h1 class="tituloContainer">Contas Pagas</h1>
-        <div class="containerContas" id="containerContasPagas">
+        <div id="divContasApagar" class="divContas">
+            <h1 class="tituloContainer">Contas a Pagar</h1>
+            <h3 id="dicaContasApagar" class="dica">Suas contas pendentes aparecerão aqui!</h3>
+            <div class="containerContas" id="containerContasApagar"></div>
         </div>
 
-        <div id="containerBtnLimparContas">
-            <button type="reset" id="btnLimparContasPagas" onclick="limparContasPagas()" hidden>Limpar Contas</button>
+        <div id="divContasPagas" class="divContas">
+            <h1 class="tituloContainer">Contas Pagas</h1>
+            <h3 id="dicaContasPagas" class="dica">Suas contas pagas aparecerão aqui!</h3>
+            <div class="containerContas" id="containerContasPagas"></div>
+
+            <div id="containerBtnLimparContas">
+                <button type="reset" id="btnLimparContasPagas" onclick="limparContasPagas()" hidden>Limpar
+                    Contas</button>
+            </div>
+
         </div>
 
 
