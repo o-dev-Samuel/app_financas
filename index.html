@@ -18,32 +18,35 @@
                 <div id="perguntaNome">
                     <h1>Olá</h1>
                     <h2>Qual é o seu primeiro nome?</h2>
-                    <input type="text" id="nomeUsuario">
-                    <button id="btnModalNome" class="btnModal" disabled>OK</button>
+                    <input type="text" id="nomeUsuario" class="input">
+                    <button id="btnModalNome" class="btn" class="btnModal" disabled >OK</button>
                 </div>
 
                 <div id="perguntaSalario" hidden>
                     <h1>Olá</h1>
                     <h2>Qual é o seu salário base?</h2>
-                    <input type="number" id="salarioUsuario">
-                    <button type="reset" id="btnModalSalario" class="btnModal" disabled>OK</button>
+                    <input type="number" id="salarioUsuario" class="input">
+                    <button type="reset" id="btnModalSalario" class="btn" disabled>OK</button>
                 </div>
 
                 <div id="novaConta" hidden>
                     <h1>Adicione uma conta!</h1>
 
-                    <h2>Título</h2>
-                    <input type="text" id="tituloNovaConta" name="tituloNovaConta">
+                    <h4>Título</h4>
+                    <input type="text" id="tituloNovaConta" name="tituloNovaConta" class="input">
 
-                    <h2>Valor</h2>
-                    <input type="number" id="valorNovaConta" name="valorNovaConta">
+                    <h4>Valor</h4>
+                    <input type="number" id="valorNovaConta" name="valorNovaConta" class="input">
 
-                    <h2>Vencimento</h2>
-                    <input type="date" id="vencimentoNovaConta" name="vencimentoNovaConta">
+                    <h4>Vencimento</h4>
+                    <h5>Dia:</h5>
+                    <input type="number" id="diaVenc" name="diaVenc" class="input">
+                    <h5>Mês:</h5>
+                    <input type="number" id="mesVenc" name="mesVenc" class="input">
 
 
-                    <input type="reset" value="Add" id="btnModalNovaConta" class="btnModal" disabled>
-                    <input type="reset" value="Cancelar" id="btnModalCancelarNovaConta" class="btnModal">
+                    <input type="reset" value="Add" id="btnModalNovaConta" class="btn" disabled>
+                    <input type="reset" value="Cancelar" id="btnModalCancelarNovaConta" class="btn">
 
                 </div>
 
@@ -51,37 +54,37 @@
 
                     <h1>Deseja excluir?</h1>
                     <h2>Digite o "id" da conta para confirmar!</h2>
-                    <input type="number" name="idParaExcluir" id="idParaExcluir">
-                    <button type="reset" id="btnModalExcluirConta">Excluir</button>
-                    <button type="reset" id="btnModalCancelarExclusao">Cancelar</button>
+                    <input type="number" name="idParaExcluir" id="idParaExcluir" class="input">
+                    <button type="reset" id="btnModalExcluirConta" class="btn">Excluir</button>
+                    <button type="reset" id="btnModalCancelarExclusao" class="btn">Cancelar</button>
 
                 </div>
 
                 <div id="confirmarExclusao" hidden>
                     <h1 id="h1ConfirmarExclusao"></h1>
-                    <button type="reset" id="btnModaConfirmarExclusao">Excluir</button>
-                    <button type="reset" id="btnModalCancelarConfirmacaoExclusao">Cancelar</button>
+                    <button type="reset" id="btnModaConfirmarExclusao" class="btn">Excluir</button>
+                    <button type="reset" id="btnModalCancelarConfirmacaoExclusao" class="btn">Cancelar</button>
 
                 </div>
 
                 <div id="modalPagarConta" hidden>
                     <h1>Deseja Pagar?</h1>
                     <h2>Digite o "id" da conta para confirmar!</h2>
-                    <input type="number" name="idParaPagar" id="idParaPagar">
-                    <button type="reset" id="btnModalPagarConta">Pagar</button>
-                    <button type="reset" id="btnModalCancelarPagamento">Cancelar</button>
+                    <input type="number" name="idParaPagar" id="idParaPagar" class="input">
+                    <button type="reset" id="btnModalPagarConta" class="btn">Pagar</button>
+                    <button type="reset" id="btnModalCancelarPagamento" class="btn">Cancelar</button>
                 </div>
 
                 <div id="confirmarPagamento" hidden>
                     <h1 id="h1ConfirmarPagamento"></h1>
-                    <button type="reset" id="btnModalConfirmarPagamento">Pagar</button>
-                    <button type="reset" id="btnModalCancelarConfirmacaoPagamento">Cancelar</button>
+                    <button type="reset" id="btnModalConfirmarPagamento" class="btn">Pagar</button>
+                    <button type="reset" id="btnModalCancelarConfirmacaoPagamento" class="btn">Cancelar</button>
                 </div>
 
                 <div id="modalConfirmarLimparContas" hidden>
                     <h1>Deseja Limpar as Contas pagas?</h1>
-                    <button type="reset" id="btnModalConfirmarLimparContasPagas">Limpar</button>
-                    <button type="reset" id="btnModalCancelarLimparContas">Cancelar</button>
+                    <button type="reset" id="btnModalConfirmarLimparContasPagas" class="btn">Limpar</button>
+                    <button type="reset" id="btnModalCancelarLimparContas" class="btn">Cancelar</button>
                 </div>
 
 
@@ -113,6 +116,7 @@
                 <div id="valorSobras"></div>
             </div>
 
+
         </div>
 
     </header>
@@ -130,8 +134,7 @@
             <div class="containerContas" id="containerContasPagas"></div>
 
             <div id="containerBtnLimparContas">
-                <button type="reset" id="btnLimparContasPagas" onclick="limparContasPagas()" hidden>Limpar
-                    Contas</button>
+                <button type="reset" id="btnLimparContasPagas" class="btn" onclick="limparContasPagas()" hidden>Limpar</button>
             </div>
 
         </div>

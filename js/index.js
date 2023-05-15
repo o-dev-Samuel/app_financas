@@ -16,7 +16,8 @@ let btnAddConta = document.getElementById('btnAddConta')
 let btnModalNovaConta = document.getElementById('btnModalNovaConta')
 let inputTituloNovaConta = document.getElementById('tituloNovaConta')
 let inputValorNovaConta = document.getElementById('valorNovaConta')
-let inputVencimentoNovaConta = document.getElementById('vencimentoNovaConta')
+let inputDiaVenc = document.getElementById('diaVenc')
+let inputMesVenc = document.getElementById('mesVenc')
 let btnModalCancelarNovaConta = document.getElementById('btnModalCancelarNovaConta')
 let modalNome = document.getElementById('perguntaNome')
 let modalSalario = document.getElementById('perguntaSalario')
@@ -73,7 +74,7 @@ inputValorNovaConta.addEventListener('keydown', (event) => {
         event.preventDefault()
     }
 })
-inputVencimentoNovaConta.addEventListener('keydown', (event) => {
+inputDiaVenc.addEventListener('keydown', (event) => {
     if (event.code == "Enter") {
         event.preventDefault()
     }
@@ -84,6 +85,11 @@ inpuIdParaExcluir.addEventListener('keydown', (event) => {
     }
 })
 inputIdParaPagar.addEventListener('keydown', (event) => {
+    if (event.code == "Enter") {
+        event.preventDefault()
+    }
+})
+inputMesVenc.addEventListener('keydown', (event) => {
     if (event.code == "Enter") {
         event.preventDefault()
     }
@@ -157,14 +163,14 @@ btnModalSalario.addEventListener('click', () => {
     salarioUsuario = inputSalarioUsuario.value
 
     // Caulculando o que sobra do Salario e atribuindo ao elemento sobras
-    elementoSobras.innerText = salarioUsuario - somaTotalDividas
+    elementoSobras.innerText = `$${salarioUsuario - somaTotalDividas}`
 
     // ocultando o modal
     dialogo.close()
 
     // Adicionando os valores as variáveis
     saudacao.innerText = `Bem vindo(a), ${nomeUsuario}!`
-    elementoSalario.innerText = salarioUsuario
+    elementoSalario.innerText = `$${salarioUsuario}`
 
     // ociltando o modal de perguntar nome
     modalSalario.setAttribute('hidden', true)
@@ -215,10 +221,12 @@ function renderizarContas() {
         <h2>${conta.titulo}</h2>
         <h3>ID:${contadorId}</h3>
         <div class="dadosConta">
-            <p>valor:$${conta.valor}</p>
-            <p>ven.:${conta.vencimento}</p>
-            <button class="excluirConta"  onclick="excluirConta()">Excluir</button>
-            <button class="pagarConta" onclick="pagarConta()">Pagar</button>
+            <p>valor: $${conta.valor}</p>
+            <p>venc: ${conta.vencimento}</p>
+            <div id="containerBtnConta">
+                <button id="btnExcluirConta" class="btnConta" onclick="excluirConta()"></button>
+                <button id="btnPagarConta" class="btnConta" onclick="pagarConta()"></button>
+            </div>
         </div>
         `
     });
@@ -255,7 +263,7 @@ function totalDividas() {
     dividas.forEach(conta => {
         somaTotalDividas += Number(conta.valor)
     })
-    elementoDividas.innerText = `${somaTotalDividas}`
+    elementoDividas.innerText = `$${somaTotalDividas}`
 }
 
 // Função para chamar o modal de exclusao de conta
@@ -283,7 +291,7 @@ btnModalNovaConta.addEventListener('click', () => {
     // Capturando elementos e atribuindo valor as variaveis
     let tituloNovaConta = inputTituloNovaConta.value
     let valorNovaConta = inputValorNovaConta.value
-    let vencimentoNovaConta = inputVencimentoNovaConta.value
+    let vencimentoNovaConta = `${inputDiaVenc.value}/${inputMesVenc.value}`
 
     // Crinado obj da conta
     let novaConta = new Conta(tituloNovaConta, valorNovaConta, vencimentoNovaConta)
@@ -295,7 +303,7 @@ btnModalNovaConta.addEventListener('click', () => {
     totalDividas();
 
     // Caulculando o que sobra do Salario e atribuindo ao elemento sobras
-    elementoSobras.innerText = salarioUsuario - somaTotalDividas
+    elementoSobras.innerText = `$${salarioUsuario - somaTotalDividas}`
 
     // Chamando a função que renderiza as dividas
     renderizarContas()
@@ -399,7 +407,6 @@ btnModalPagarConta.addEventListener('click', () => {
 
     // Verificando se a conta existe
     if (indexParaPagar + 1 > dividas.length || indexParaPagar + 1 < 1) {
-        alert(indexParaPagar)
         alert('Conta não encontrada!')
     } else {
 
