@@ -99,8 +99,13 @@ inputMesVenc.addEventListener('keydown', (event) => {
 inputNomeUsuario.addEventListener('keyup', () => {
     if (inputNomeUsuario.value.length > 0) {
         btnModalNome.removeAttribute('disabled')
+        btnModalNome.style.background = 'blueviolet'
+        btnModalNome.style.color = '#fff'
+
     } else {
         btnModalNome.setAttribute('disabled', true)
+        btnModalNome.style.background = 'rgb(73, 73, 73)'
+        btnModalNome.style.color = 'rgb(105, 105, 105)'
     }
 })
 
@@ -108,8 +113,12 @@ inputNomeUsuario.addEventListener('keyup', () => {
 inputSalarioUsuario.addEventListener('keyup', () => {
     if (inputSalarioUsuario.value.length > 0) {
         btnModalSalario.removeAttribute('disabled')
+        btnModalSalario.style.background = 'blueviolet'
+        btnModalSalario.style.color = '#fff'
     } else {
         btnModalSalario.setAttribute('disabled', true)
+        btnModalSalario.style.background = 'rgb(73, 73, 73)'
+        btnModalSalario.style.color = 'rgb(105, 105, 105)'
     }
 })
 
@@ -128,8 +137,12 @@ inputTituloNovaConta.addEventListener('keyup', () => {
     // Validando se os dois campos estão validados
     if (validarAddContaTitulo && validarAddContaValor) {
         btnModalNovaConta.removeAttribute('disabled')
+        btnModalNovaConta.style.background = 'blueviolet'
+        btnModalNovaConta.style.color = '#fff'
     } else {
         btnModalNovaConta.setAttribute('disabled', true)
+        btnModalNovaConta.style.background = 'rgb(73, 73, 73)'
+        btnModalNovaConta.style.color = 'rgb(105, 105, 105)'
     }
 })
 
@@ -144,8 +157,12 @@ inputValorNovaConta.addEventListener('keyup', () => {
     // Validando se os dois campos estão validados
     if (validarAddContaTitulo && validarAddContaValor) {
         btnModalNovaConta.removeAttribute('disabled')
+        btnModalNovaConta.style.background = 'blueviolet'
+        btnModalNovaConta.style.color = '#fff'
     } else {
         btnModalNovaConta.setAttribute('disabled', true)
+        btnModalNovaConta.style.background = 'rgb(73, 73, 73)'
+        btnModalNovaConta.style.color = 'rgb(105, 105, 105)'
     }
 })
 
@@ -314,6 +331,10 @@ btnModalNovaConta.addEventListener('click', () => {
     // Fechando o modal de adiocionar conta
     modalAddConta.setAttribute('hidden', true)
 
+    // Mudando a cor do btn
+    btnModalNovaConta.style.background = 'rgb(73, 73, 73)'
+    btnModalNovaConta.style.color = 'rgb(105, 105, 105)'
+
     // Resetando as validacoes do modal add conta
     validarAddContaTitulo = false
     validarAddContaValor = false
@@ -333,6 +354,10 @@ btnModalCancelarNovaConta.addEventListener('click', () => {
 
     // Desabilotando btn do Modal nova conta
     btnModalNovaConta.setAttribute('disabled', true)
+
+    // Mudando a cor do btn
+    btnModalNovaConta.style.background = 'rgb(73, 73, 73)'
+    btnModalNovaConta.style.color = 'rgb(105, 105, 105)'
 
     // Resetando as validacoes do modal add conta
     validarAddContaTitulo = false
@@ -412,7 +437,7 @@ btnModalPagarConta.addEventListener('click', () => {
 
         modalPagarConta.setAttribute('hidden', true)
         modalConfirmarPagamento.removeAttribute('hidden')
-        h1ConfirmarPagamento.innerText = `Deseja pagar a conta "${dividas[indexParaPagar].titulo}"`
+        h1ConfirmarPagamento.innerText = `Deseja pagar a conta "${dividas[indexParaPagar].titulo}"?`
 
     }
 })
@@ -488,10 +513,22 @@ btnModalConfirmarLimparContasPagas.addEventListener('click', () => {
     modalConfirmarLimparContas.setAttribute('hidden', true)
 })
 
+btnModalCancelarLimparContas.addEventListener('click', () => {
+    // fechando o modal
+    dialogo.close()
+
+    // ocultando o modal de confirmar pagamento
+    modalConfirmarLimparContas.setAttribute('hidden', true)
+})
+
 btnEditarSalario.addEventListener('click', () => {
     // desabilitando botao de confirmar salario
     btnModalSalario.setAttribute('disabled', true)
-    
+
+    // Mudando a cor do btn
+    btnModalSalario.style.background = 'rgb(73, 73, 73)'
+    btnModalSalario.style.color = 'rgb(105, 105, 105)'
+
     // Habilitando o modal de perguntar salario
     modalSalario.removeAttribute('hidden')
 

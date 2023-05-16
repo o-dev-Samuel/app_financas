@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Finanças</title>
     <link rel="stylesheet" href="./css/index.css">
     <script src="./js/index.js" defer></script>
 </head>
@@ -16,14 +16,14 @@
         <dialog id="pegandoDados">
             <form action="" method="post">
                 <div id="perguntaNome">
-                    <h1>Olá</h1>
+                    <h1>Olá!</h1>
                     <h2>Qual é o seu primeiro nome?</h2>
                     <input type="text" id="nomeUsuario" class="input">
-                    <button id="btnModalNome" class="btn" class="btnModal" disabled >OK</button>
+                    <button id="btnModalNome" class="btn" class="btnModal" disabled>OK</button>
                 </div>
 
                 <div id="perguntaSalario" hidden>
-                    <h1>Olá</h1>
+                    <h1>Olá!</h1>
                     <h2>Qual é o seu salário base?</h2>
                     <input type="number" id="salarioUsuario" class="input">
                     <button type="reset" id="btnModalSalario" class="btn" disabled>OK</button>
@@ -32,18 +32,24 @@
                 <div id="novaConta" hidden>
                     <h1>Adicione uma conta!</h1>
 
-                    <h4>Título</h4>
+                    <label for="tituloNovaConta">Título</label>
                     <input type="text" id="tituloNovaConta" name="tituloNovaConta" class="input">
 
-                    <h4>Valor</h4>
+                    <label for="valorNovaConta">Valor</label>
                     <input type="number" id="valorNovaConta" name="valorNovaConta" class="input">
 
                     <h4>Vencimento</h4>
-                    <h5>Dia:</h5>
-                    <input type="number" id="diaVenc" name="diaVenc" class="input">
-                    <h5>Mês:</h5>
-                    <input type="number" id="mesVenc" name="mesVenc" class="input">
+                    <div id="containerVenc">
+                        <div>
+                            <label for="diaVenc">Dia:</label>
+                            <input type="number" id="diaVenc" name="diaVenc" class="input">
+                        </div>
+                        <div>
+                            <label for="mesVenc">Mes:</label>
+                            <input type="number" id="mesVenc" name="mesVenc" class="input">
+                        </div>
 
+                    </div>
 
                     <input type="reset" value="Add" id="btnModalNovaConta" class="btn" disabled>
                     <input type="reset" value="Cancelar" id="btnModalCancelarNovaConta" class="btn">
@@ -54,7 +60,7 @@
 
                     <h1>Deseja excluir?</h1>
                     <h2>Digite o "id" da conta para confirmar!</h2>
-                    <input type="number" name="idParaExcluir" id="idParaExcluir" class="input">
+                    <input type="number" name="idParaExcluir" id="idParaExcluir" class="inputId">
                     <button type="reset" id="btnModalExcluirConta" class="btn">Excluir</button>
                     <button type="reset" id="btnModalCancelarExclusao" class="btn">Cancelar</button>
 
@@ -70,7 +76,7 @@
                 <div id="modalPagarConta" hidden>
                     <h1>Deseja Pagar?</h1>
                     <h2>Digite o "id" da conta para confirmar!</h2>
-                    <input type="number" name="idParaPagar" id="idParaPagar" class="input">
+                    <input type="number" name="idParaPagar" id="idParaPagar" class="inputId">
                     <button type="reset" id="btnModalPagarConta" class="btn">Pagar</button>
                     <button type="reset" id="btnModalCancelarPagamento" class="btn">Cancelar</button>
                 </div>
@@ -103,7 +109,9 @@
                 <h3 id="tituloSalario">Salario</h3>
                 <div id="valorSalario"></div>
 
-                <button id="btnEditarSalario">Editar</button>
+                <button id="btnEditarSalario">
+                    <img src="./img/editar.png" alt="Imagens de um lápis" width="15px">
+                </button>
             </div>
 
             <div id="dividas" class="valores">
@@ -123,7 +131,7 @@
 
     <main>
         <div id="divContasApagar" class="divContas">
-            <h1 class="tituloContainer">Contas a Pagar</h1>
+            <h1 class="tituloContainer">Contas à Pagar</h1>
             <h3 id="dicaContasApagar" class="dica">Suas contas pendentes aparecerão aqui!</h3>
             <div class="containerContas" id="containerContasApagar"></div>
         </div>
@@ -134,7 +142,8 @@
             <div class="containerContas" id="containerContasPagas"></div>
 
             <div id="containerBtnLimparContas">
-                <button type="reset" id="btnLimparContasPagas" class="btn" onclick="limparContasPagas()" hidden>Limpar</button>
+                <button type="reset" id="btnLimparContasPagas" class="btn" onclick="limparContasPagas()"
+                    hidden>Limpar</button>
             </div>
 
         </div>
