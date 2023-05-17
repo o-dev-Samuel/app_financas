@@ -19,6 +19,11 @@
                     <h1>Olá!</h1>
                     <h2>Qual é o seu primeiro nome?</h2>
                     <input type="text" id="nomeUsuario" class="input">
+                    <div class="avisos">
+                        <p class="campoObrigatorio">*Campo obrigatório!</p>
+                    <p class="campoObrigatorio">*Max. 20 caractéres!</p>
+                    </div>
+                    
                     <button id="btnModalNome" class="btn" class="btnModal" disabled>OK</button>
                 </div>
 
@@ -26,6 +31,10 @@
                     <h1>Olá!</h1>
                     <h2>Qual é o seu salário base?</h2>
                     <input type="number" id="salarioUsuario" class="input">
+                    <div class="avisos">
+                        <p class="campoObrigatorio">*Campo obrigatório!</p>
+                    <p class="campoObrigatorio">*Max. 8 caractéres!</p>
+                    </div>
                     <button type="reset" id="btnModalSalario" class="btn" disabled>OK</button>
                 </div>
 
@@ -34,9 +43,18 @@
 
                     <label for="tituloNovaConta">Título</label>
                     <input type="text" id="tituloNovaConta" name="tituloNovaConta" class="input">
+                    <div class="avisos">
+                        <p class="campoObrigatorio">*Campo obrigatório!</p>
+                    <p class="campoObrigatorio">*Max. 6 caractéres!</p>
+                    </div>
 
                     <label for="valorNovaConta">Valor</label>
                     <input type="number" id="valorNovaConta" name="valorNovaConta" class="input">
+                    <div class="avisos">
+                        <p class="campoObrigatorio">*Campo obrigatório!</p>
+                    <p class="campoObrigatorio">*Max. 5 caractéres!</p>
+                    </div>
+                    
 
                     <h4>Vencimento</h4>
                     <div id="containerVenc">
@@ -48,7 +66,10 @@
                             <label for="mesVenc">Mes:</label>
                             <input type="number" id="mesVenc" name="mesVenc" class="input">
                         </div>
+                    </div>
 
+                    <div class="avisos">
+                        <p class="campoOpicional">*Campos opcionais!</p>
                     </div>
 
                     <input type="reset" value="Add" id="btnModalNovaConta" class="btn" disabled>
@@ -93,6 +114,20 @@
                     <button type="reset" id="btnModalCancelarLimparContas" class="btn">Cancelar</button>
                 </div>
 
+                <div id="modalContaPaga" hidden>
+                    <h1>Conta paga!</h1>
+                    <p>Novos ID`s atribuídos ás contas!</p>
+                    <img src="./img/verifica.png" alt="Feito" width="80px" id="imgContaPaga" class="imgAcao">
+                    <button type="reset" id="btnModalContaPaga" class="btn">Ok</button>
+                </div>
+
+                <div id="modalContaExcluida" hidden>
+                    <h1>Conta Excluída!</h1>
+                    <p>Novos ID`s atribuídos ás contas!</p>
+                    <img src="./img/excluido.png" alt="Feito" width="80px" id="imgContaExcluida" class="imgAcao">
+                    <button type="reset" id="btnModalContaExcluida" class="btn">Ok</button>
+                </div>
+
 
 
 
@@ -106,8 +141,8 @@
         <div id="containerValores">
 
             <div id="salario" class="valores">
-                <h3 id="tituloSalario">Salario</h3>
-                <div id="valorSalario"></div>
+                <h3 id="tituloSalario">Salário</h3>
+                <div id="valorSalario">$0</div>
 
                 <button id="btnEditarSalario">
                     <img src="./img/editar.png" alt="Imagens de um lápis" width="15px">
@@ -116,12 +151,12 @@
 
             <div id="dividas" class="valores">
                 <h3 id="tituloDividas">Total Dívidas</h3>
-                <div id="valorDividas"></div>
+                <div id="valorDividas">$0</div>
             </div>
 
-            <div id="Sobras" class="valores">
+            <div id="sobras" class="valores">
                 <h3 id="tituloSobras">Sobras</h3>
-                <div id="valorSobras"></div>
+                <div id="valorSobras">$0</div>
             </div>
 
 

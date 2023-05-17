@@ -47,6 +47,11 @@ let btnModalCancelarLimparContas = document.getElementById('btnModalCancelarLimp
 let btnEditarSalario = document.getElementById('btnEditarSalario')
 let dicaContasApagar = document.getElementById('dicaContasApagar')
 let dicaContasPagas = document.getElementById('dicaContasPagas')
+let modalContaPaga = document.getElementById('modalContaPaga')
+let imgContaPaga = document.getElementById('imgContaPaga')
+let btnModalContaPaga = document.getElementById('btnModalContaPaga')
+let modalContaExcluida = document.getElementById('modalContaExcluida')
+let btnModalContaExcluida = document.getElementById('btnModalContaExcluida')
 
 
 
@@ -63,9 +68,21 @@ inputNomeUsuario.addEventListener('keydown', (event) => {
     if (event.code == "Enter") {
         event.preventDefault()
     }
+
+    if (inputNomeUsuario.value.length > 19 && event.code != "Backspace") {
+        event.preventDefault()
+    }
+})
+inputSalarioUsuario.addEventListener('keydown', (event) => {
+    if (inputSalarioUsuario.value.length > 7 && event.code != "Backspace") {
+        event.preventDefault()
+    }
 })
 inputTituloNovaConta.addEventListener('keydown', (event) => {
     if (event.code == "Enter") {
+        event.preventDefault()
+    }
+    if (inputTituloNovaConta.value.length > 5 && event.code != "Backspace") {
         event.preventDefault()
     }
 })
@@ -73,9 +90,15 @@ inputValorNovaConta.addEventListener('keydown', (event) => {
     if (event.code == "Enter") {
         event.preventDefault()
     }
+    if (inputValorNovaConta.value.length > 4 && event.code != "Backspace") {
+        event.preventDefault()
+    }
 })
 inputDiaVenc.addEventListener('keydown', (event) => {
     if (event.code == "Enter") {
+        event.preventDefault()
+    }
+    if (inputDiaVenc.value.length > 1 && event.code != "Backspace") {
         event.preventDefault()
     }
 })
@@ -91,6 +114,9 @@ inputIdParaPagar.addEventListener('keydown', (event) => {
 })
 inputMesVenc.addEventListener('keydown', (event) => {
     if (event.code == "Enter") {
+        event.preventDefault()
+    }
+    if (inputMesVenc.value.length > 1 && event.code != "Backspace") {
         event.preventDefault()
     }
 })
@@ -305,7 +331,7 @@ function limparContasPagas() {
 
 
 btnModalNovaConta.addEventListener('click', () => {
-    // Capturando elementos e atribuindo valor as variaveis
+    // atribuindo valor as variaveis
     let tituloNovaConta = inputTituloNovaConta.value
     let valorNovaConta = inputValorNovaConta.value
     let vencimentoNovaConta = `${inputDiaVenc.value}/${inputMesVenc.value}`
@@ -393,11 +419,11 @@ btnModalConfirmarExclusao.addEventListener('click', () => {
         dicaContasApagar.removeAttribute('hidden')
     }
 
-    // fechando o modal
-    dialogo.close()
-
     // ocultando o modal de confirmação de  exclusao
     modalConfirmarExclusao.setAttribute('hidden', true)
+
+    // Chamando o prox modal
+    modalContaExcluida.removeAttribute('hidden')
 
     // atualizando o total de dividas
     totalDividas()
@@ -444,7 +470,7 @@ btnModalPagarConta.addEventListener('click', () => {
 
 btnModalConfirmarPagamento.addEventListener('click', () => {
     // Abatendo o valor da divida no salario
-    salarioUsuario -= dividas[indexParaPagar].valor
+    salarioUsuario -= `$${dividas[indexParaPagar].valor}`
     elementoSalario.innerText = salarioUsuario
     // Criando nova conta paga
     let novaContaPaga = new ContaPaga(dividas[indexParaPagar].titulo, dividas[indexParaPagar].valor)
@@ -470,11 +496,11 @@ btnModalConfirmarPagamento.addEventListener('click', () => {
     // atualizando o total de dividas
     totalDividas()
 
-    // fechando o modal
-    dialogo.close()
-
     // ocultando o modal de confirmação de  exclusao
     modalConfirmarPagamento.setAttribute('hidden', true)
+
+    // Chamando o prox modal
+    modalContaPaga.removeAttribute('hidden')
 
     // Atualizando as sobras
     elementoSobras.innerText = salarioUsuario - somaTotalDividas
@@ -533,6 +559,22 @@ btnEditarSalario.addEventListener('click', () => {
     modalSalario.removeAttribute('hidden')
 
     dialogo.showModal()
+})
+
+btnModalContaPaga.addEventListener('click', ()=>{
+    // Fechando Modal
+    dialogo.close()
+
+    // Ocultando pago
+    modalContaPaga.setAttribute('hidden', true)
+})
+
+btnModalContaExcluida.addEventListener('click', ()=>{
+    // Fechando Modal
+    dialogo.close()
+
+    // Ocultando pago
+    modalContaExcluida.setAttribute('hidden', true)
 })
 
 
