@@ -1,9 +1,5 @@
 // Mostran primeiro o modal para obter os dados do usuário
 let dialogo = document.querySelector("dialog")
-document.body.onload = () => {
-
-    dialogo.showModal()
-}
 
 // Capturando elementos
 let inputNomeUsuario = document.getElementById('nomeUsuario')
@@ -54,13 +50,19 @@ let modalContaExcluida = document.getElementById('modalContaExcluida')
 let btnModalContaExcluida = document.getElementById('btnModalContaExcluida')
 
 
+// Array para armazenar as dividas
+let dividas = []
 
+// Array para armazenar as dividas pagas
+let dividasPagas = []
 
 // Variaveis do usuario
 let nomeUsuario;
-let salarioUsuario;
+let salarioUsuario = 0
 let elementoDividas = document.getElementById('valorDividas')
 let elementoSobras = document.getElementById('valorSobras')
+
+
 
 // Validações
 // listener para interromper bug
@@ -196,6 +198,10 @@ btnModalNome.addEventListener('click', (event) => {
     event.preventDefault()
     // Guardando nome do usuário
     nomeUsuario = inputNomeUsuario.value
+
+    // Salvando no Local
+    localStorage.setItem('Nome', nomeUsuario)
+
     // Mudando pergunta do modal
     modalNome.setAttribute('hidden', true)
     modalSalario.removeAttribute('hidden')
@@ -204,6 +210,9 @@ btnModalNome.addEventListener('click', (event) => {
 btnModalSalario.addEventListener('click', () => {
     // Guardando o salário do usuário
     salarioUsuario = inputSalarioUsuario.value
+
+    // Salvando no Local
+    localStorage.setItem('Salario', salarioUsuario)
 
     // Caulculando o que sobra do Salario e atribuindo ao elemento sobras
     elementoSobras.innerText = `$${salarioUsuario - somaTotalDividas}`
@@ -230,8 +239,6 @@ btnAddConta.addEventListener('click', () => {
     dialogo.showModal()
 })
 
-// Array para armazenar as dividas
-let dividas = []
 // Contrutor para as dividas
 class Conta {
     constructor(titulo, valor, vencimento) {
@@ -240,9 +247,6 @@ class Conta {
         this.vencimento = vencimento
     }
 }
-
-// Array para armazenar as dividas pagas
-let dividasPagas = []
 
 // Construtor para as dividas
 class ContaPaga {
@@ -342,6 +346,12 @@ btnModalNovaConta.addEventListener('click', () => {
     // Adicionando a conta ao array de dividas
     dividas.push(novaConta)
 
+    // Adicionando dividas ao localStorage
+    localStorage.removeItem('Dividas')
+    localStorage.setItem('Dividas', JSON.stringify(dividas))
+
+    console.log(localStorage.getItem('Dividas'))
+
     // Percorrendo o array de dividas e adicionando o valor a variavel somaTotalDividas
     totalDividas();
 
@@ -411,6 +421,10 @@ btnModalConfirmarExclusao.addEventListener('click', () => {
     //Excluindo
     dividas.splice(indexParaExcluir, 1)
 
+    // Adicionando dividas ao localStorage
+    localStorage.removeItem('Dividas')
+    localStorage.setItem('Dividas', JSON.stringify(dividas))
+
     // Chamando a função que renderiza as dividas
     renderizarContas()
 
@@ -429,7 +443,7 @@ btnModalConfirmarExclusao.addEventListener('click', () => {
     totalDividas()
 
     // Atualizando as sobras
-    elementoSobras.innerText = salarioUsuario - somaTotalDividas
+    elementoSobras.innerText = `$${salarioUsuario - somaTotalDividas}`
 
 })
 
@@ -470,16 +484,29 @@ btnModalPagarConta.addEventListener('click', () => {
 
 btnModalConfirmarPagamento.addEventListener('click', () => {
     // Abatendo o valor da divida no salario
-    salarioUsuario -= `$${dividas[indexParaPagar].valor}`
-    elementoSalario.innerText = salarioUsuario
+    salarioUsuario -= dividas[indexParaPagar].valor
+
+    // Atualizando o LocalStorage
+    localStorage.removeItem('Salario')
+    localStorage.setItem('Salario', salarioUsuario)
+
+    elementoSalario.innerText = `$${salarioUsuario}`
     // Criando nova conta paga
     let novaContaPaga = new ContaPaga(dividas[indexParaPagar].titulo, dividas[indexParaPagar].valor)
 
     // Adicionando a conta ao array de contas pagas
     dividasPagas.push(novaContaPaga)
 
+    // Adicionando dividasPagas ao localStorage
+    localStorage.removeItem('DividasPagas')
+    localStorage.setItem('DividasPagas', JSON.stringify(dividasPagas))
+
     //Excluindo das contas a pagar
     dividas.splice(indexParaPagar, 1)
+
+    // Adicionando dividas ao localStorage
+    localStorage.removeItem('Dividas')
+    localStorage.setItem('Dividas', JSON.stringify(dividas))
 
     // ocultando a dica
     dicaContasPagas.setAttribute('hidden', true)
@@ -526,6 +553,9 @@ btnModalConfirmarLimparContasPagas.addEventListener('click', () => {
     // Limpando o array de dividas Pagas
     dividasPagas = []
 
+    // Adicionando dividasPagas ao localStorage
+    localStorage.removeItem('DividasPagas')
+
     // mostrando a dica
     dicaContasPagas.removeAttribute('hidden')
 
@@ -561,7 +591,7 @@ btnEditarSalario.addEventListener('click', () => {
     dialogo.showModal()
 })
 
-btnModalContaPaga.addEventListener('click', ()=>{
+btnModalContaPaga.addEventListener('click', () => {
     // Fechando Modal
     dialogo.close()
 
@@ -569,7 +599,7 @@ btnModalContaPaga.addEventListener('click', ()=>{
     modalContaPaga.setAttribute('hidden', true)
 })
 
-btnModalContaExcluida.addEventListener('click', ()=>{
+btnModalContaExcluida.addEventListener('click', () => {
     // Fechando Modal
     dialogo.close()
 
@@ -577,6 +607,50 @@ btnModalContaExcluida.addEventListener('click', ()=>{
     modalContaExcluida.setAttribute('hidden', true)
 })
 
+// Renderizando caso haja dados salvos
+if (localStorage.getItem('Nome') != null) {
+    // Adicionando Valores as variáveis
+    nomeUsuario = localStorage.getItem('Nome')
+    saudacao.innerText = `Bem vindo(a), ${nomeUsuario}!`
+
+    if (localStorage.getItem('Salario') != null) {
+        salarioUsuario = localStorage.getItem('Salario')
+        elementoSalario.innerText = `$${salarioUsuario}`
+    }
+
+    // Atribuindo valores salvos ao array
+    if (localStorage.getItem('Dividas') != null) {
+        dividas = JSON.parse(localStorage.getItem('Dividas'))
+
+        // Ocultando a dica
+        if (dividas.length > 0) {
+            dicaContasApagar.setAttribute('hidden', true)
+        }
+
+        // Renderizando as dividas
+        renderizarContas()
+    }
+
+    if (localStorage.getItem('DividasPagas') != null) {
+        // Atribuindo valores salvos ao array
+        dividasPagas = JSON.parse(localStorage.getItem('DividasPagas'))
+
+        // Ocultando a dica
+        if (dividasPagas.length > 0) {
+            dicaContasPagas.setAttribute('hidden', true)
+        }
+
+        // Renderizando as dividas Pagas
+        renderizarContasPagas()
+    }
+
+    totalDividas()
+    elementoSobras.innerText = `$${salarioUsuario - somaTotalDividas}`
+
+} else {
+    modalNome.removeAttribute('hidden')
+    dialogo.showModal()
+}
 
 
 
